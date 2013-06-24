@@ -6,7 +6,8 @@ AMQP extension wrapper to communicate with RabbitMQ server. Based on **videlalva
 
 #How to use#
 Pull files to `/protected/components/AMQP/`
-In congif file:
+
+In yii congif file:
 ```bash
   'components' => array(
         'amqp' => array(
@@ -20,7 +21,8 @@ In congif file:
         ...
 ```
 See `/demo` with examples.
-In controllers (publisher):
+
+In yii controllers (publisher):
 ```bash
    $exName = 'exFanOut';
    $qName = 'qF';
@@ -28,7 +30,7 @@ In controllers (publisher):
    Yii::app()->amqp->declareExchange($exName, $type = 'fanout', $passive = false, $durable = true, $auto_delete = false);
    Yii::app()->amqp->declareQueue($qName, $passive = false, $durable = true, $exclusive = false, $auto_delete = false);
    Yii::app()->amqp->bindQueueExchanger($qName, $exName);
-   Yii::app()->amqp->publish($message, $exName, $routeKey = '', $content_type = 'text/plain', $expiration = '', $message_id = '', $app_id = yii::app()->name);
+   Yii::app()->amqp->publish($message,$exName,$routeKey='',$content_type='',$expiration='',$message_id='',$app_id='');
    Yii::app()->amqp->closeConnection();
 ```
-In clients (consumer) see `/demo/yii-consumer-*`
+In clients (consumer) see `/demo/yii-consumer-*` examples.
