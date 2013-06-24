@@ -49,13 +49,11 @@ class CAMQP extends CApplicationComponent {
         $this->_channel->queue_bind($queueName, $exchangeName,$routingKey);
     }
 
-    public function publish($message, $exchangeName,$routingKey='', $content_type = 'text/plain', $expiration = '', $message_id = '', $app_id = '') {
+    public function publish_message($message, $exchangeName,$routingKey='', $content_type = 'text/plain', $app_id = '') {
         $toSend = new PhpAmqpLib\Message\AMQPMessage($message, array(
             'content_type' => $content_type,
-            'content_encoding' => 'utf-8',
-            "expiration" => $expiration,
-            "message_id" => $message_id,            
-            "app_id" => $app_id,
+            'content_encoding' => 'utf-8',                   
+            'app_id' => $app_id,
             'delivery_mode' => 2));
         $this->_channel->basic_publish($toSend, $exchangeName,$routingKey);
         

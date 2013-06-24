@@ -22,13 +22,16 @@ Yii congif file:
 ```
 Yii controller (publisher) with fanout/direct/topic types: see `/demo/yii-publisher-*` examples.
 ```bash
-   $exName = 'exFanOut';
-   $qName = 'qF';
-   //Yii::app()->amqp->exchangeDelete($exName); //you can delete exchanger if error occurred
-   Yii::app()->amqp->declareExchange($exName, $type = 'fanout', $passive = false, $durable = true, $auto_delete = false);
-   Yii::app()->amqp->declareQueue($qName, $passive = false, $durable = true, $exclusive = false, $auto_delete = false);
-   Yii::app()->amqp->bindQueueExchanger($qName, $exName);
-   Yii::app()->amqp->publish($message,$exName,$routeKey='',$content_type='',$expiration='',$message_id='',$app_id='');
-   Yii::app()->amqp->closeConnection();
+    $message = 'myMessage';
+    $exName = 'exTopic';
+    $routingKey1 = 'server1.user.error';
+    $routingKey2 = 'server1.pentest.error';
+    $routingKey3 = 'server2.user.error';
+    //Yii::app()->amqp->exchangeDelete($exName);
+    Yii::app()->amqp->declareExchange($exName, $type = 'topic', $passive = false, $durable = true, $auto_delete = false);
+    Yii::app()->amqp->publish_message($message, $exName, $routingKey1, $content_type = '',  $app_id = '');
+    Yii::app()->amqp->publish_message($message, $exName, $routingKey2, $content_type = '',  $app_id = '');
+    Yii::app()->amqp->publish_message($message, $exName, $routingKey3, $content_type = '', $app_id = '');
+    Yii::app()->amqp->closeConnection();
 ```
 Some clients (consumer,listener,executor with fanout/direct/topic types) see `/demo/yii-consumer-*` examples.
