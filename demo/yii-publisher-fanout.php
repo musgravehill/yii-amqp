@@ -11,4 +11,3 @@ Yii::app()->amqp->declareQueue($qName, $passive = false, $durable = true, $exclu
 Yii::app()->amqp->bindQueueExchanger($qName, $exName);
 Yii::app()->amqp->publish_message($message, $exName, $routingKey = '', $content_type = 'text/plain', $app_id = yii::app()->name);
 Yii::app()->amqp->closeConnection();
-

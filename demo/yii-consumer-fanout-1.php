@@ -1,4 +1,7 @@
-<?php 
+<?php
+ini_set("log_errors", 1);
+ini_set("error_log", 'C:/usr/apache/htdocs/yiimployee.ru/protected/components/AMQP/demo/log-error.txt');
+
 include(__DIR__ . '/config.php');
 use PhpAmqpLib\Connection\AMQPConnection;
 
